@@ -1,0 +1,48 @@
+{
+  "bmr_coefficients": {
+    "male": {
+      "weight": 9.99,
+      "height": 6.25,
+      "age": -4.92,
+      "constant": 5
+    },
+    "female": {
+      "weight": 9.99,
+      "height": 6.25,
+      "age": -4.92,
+      "constant": -161
+    }
+  },
+  "bmr_to_tdee_ratio": 0.7,
+  "strength_training_calories": {
+    "male": {
+      "novice": 150,
+      "intermediate": 200,
+      "advanced": 250
+    },
+    "female": {
+      "novice": 100,
+      "intermediate": 150,
+      "advanced": 200
+    }
+  },
+  "goal_multipliers": {
+    "cut": 0.64,
+    "bulk": 0.84
+  },
+  "fat_quota_grams": {
+    "cut": {
+      "male": 60,
+      "female": 50,
+      "male_over_120kg": 70
+    },
+    "bulk": {
+      "male": 80,
+      "female": 70
+    }
+  },
+  "cardio_weight_handling": {
+    "rounding": "round_nearest_5kg",
+    "extrapolation": "linear_outside_50_120kg"
+  }
+}

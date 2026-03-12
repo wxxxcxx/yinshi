@@ -1,0 +1,1020 @@
+{
+  "meta": {
+    "source": "饮食.xlsx number_format",
+    "unit": "percent_of_daily",
+    "notes": [
+      "百分比来自单元格自定义数字格式（不可见占位符）",
+      "rest_day 午饭/晚饭碳水百分比按业务规则补齐",
+      "蛋白质为0表示“蛋白质不用吃”"
+    ]
+  },
+  "green_table": {
+    "breakfast": {
+      "carbs_pct": 15,
+      "protein_pct": 20
+    },
+    "snack": {
+      "carbs_pct": null,
+      "protein_pct": null
+    }
+  },
+  "rest_day_carb_defaults": {
+    "lunch": 40,
+    "dinner": 35
+  },
+  "goals": {
+    "cut": {
+      "scenarios": {
+        "post_breakfast_early": {
+          "training": [
+            {
+              "label": "①早饭=练前餐",
+              "slot": "breakfast",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 20
+            },
+            {
+              "label": "③午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "④晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "post_breakfast_late": {
+          "training": [
+            {
+              "label": "①早饭=练前餐",
+              "slot": "breakfast",
+              "meal_type": "pre_workout",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=练后餐",
+              "slot": "lunch",
+              "meal_type": "post_workout",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 30,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "pre_lunch": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②练前餐",
+              "slot": "pre_workout",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 0
+            },
+            {
+              "label": "③午饭=练后餐",
+              "slot": "lunch",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "post_lunch": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=练前餐",
+              "slot": "lunch",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 0
+            },
+            {
+              "label": "③练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "pre_dinner": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "④午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "③练前餐",
+              "slot": "pre_workout",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 0
+            },
+            {
+              "label": "④晚饭=练后餐",
+              "slot": "dinner",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "post_dinner": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭=练前餐",
+              "slot": "dinner",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "④练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "late_night": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "③晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "④练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 30,
+              "protein_pct": 20
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "no_strength": {
+          "training": [],
+          "rest": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ]
+        }
+      }
+    },
+    "bulk": {
+      "scenarios": {
+        "post_breakfast_early": {
+          "training": [
+            {
+              "label": "①早饭=练前餐",
+              "slot": "breakfast",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 20
+            },
+            {
+              "label": "③午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "④晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "post_breakfast_late": {
+          "training": [
+            {
+              "label": "①早饭=练前餐",
+              "slot": "breakfast",
+              "meal_type": "pre_workout",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=练后餐",
+              "slot": "lunch",
+              "meal_type": "post_workout",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 30,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "pre_lunch": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②练前餐",
+              "slot": "pre_workout",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 0
+            },
+            {
+              "label": "③午饭=练后餐",
+              "slot": "lunch",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "post_lunch": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=练前餐",
+              "slot": "lunch",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 0
+            },
+            {
+              "label": "③练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "pre_dinner": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": null,
+              "protein_pct": null
+            },
+            {
+              "label": "②午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "③练前餐",
+              "slot": "pre_workout",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 0
+            },
+            {
+              "label": "④晚饭=练后餐",
+              "slot": "dinner",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "post_dinner": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "④午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭=练前餐",
+              "slot": "dinner",
+              "meal_type": "pre_workout",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "④练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        },
+        "late_night": {
+          "training": [
+            {
+              "label": "①早饭",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭=其他餐",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "③晚饭=其他餐",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 20,
+              "protein_pct": 20
+            },
+            {
+              "label": "④练后餐",
+              "slot": "post_workout",
+              "meal_type": "post_workout",
+              "carbs_pct": 30,
+              "protein_pct": 20
+            },
+            {
+              "label": "⑤零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": 10,
+              "protein_pct": 20
+            }
+          ],
+          "rest": [
+            {
+              "label": "①早饭（和绿表早饭完全相同）",
+              "slot": "breakfast",
+              "meal_type": "breakfast",
+              "carbs_pct": 15,
+              "protein_pct": 20
+            },
+            {
+              "label": "②午饭",
+              "slot": "lunch",
+              "meal_type": "other",
+              "carbs_pct": 40,
+              "protein_pct": 30
+            },
+            {
+              "label": "③晚饭",
+              "slot": "dinner",
+              "meal_type": "other",
+              "carbs_pct": 35,
+              "protein_pct": 30
+            },
+            {
+              "label": "④零食/夜宵",
+              "slot": "snack",
+              "meal_type": "snack",
+              "carbs_pct": null,
+              "protein_pct": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}

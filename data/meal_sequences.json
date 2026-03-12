@@ -1,0 +1,258 @@
+{
+  "meta": {
+    "source": "饮食计划.md",
+    "note": "每条序列用于展示训练日餐序；休息日为早饭→午饭→晚饭"
+  },
+  "sequences": [
+    {
+      "id": "post_breakfast_early",
+      "label": "早饭后练（早起版）",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "pre_workout",
+          "label": "早饭=练前餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "post_workout",
+          "quota_type": "post_workout",
+          "label": "练后餐"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "other",
+          "label": "午饭=其他餐"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "other",
+          "label": "晚饭=其他餐"
+        }
+      ]
+    },
+    {
+      "id": "post_breakfast_late",
+      "label": "早饭后练（晚起版）",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "pre_workout",
+          "label": "早饭=练前餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "post_workout",
+          "label": "午饭=练后餐"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "other",
+          "label": "晚饭=其他餐"
+        }
+      ]
+    },
+    {
+      "id": "pre_lunch",
+      "label": "午饭前练",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "breakfast",
+          "label": "早饭"
+        },
+        {
+          "slot": "pre_workout",
+          "quota_type": "pre_workout",
+          "label": "练前餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "post_workout",
+          "label": "午饭=练后餐"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "other",
+          "label": "晚饭=其他餐"
+        }
+      ]
+    },
+    {
+      "id": "post_lunch",
+      "label": "午饭后练",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "breakfast",
+          "label": "早饭"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "pre_workout",
+          "label": "午饭=练前餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "post_workout",
+          "quota_type": "post_workout",
+          "label": "练后餐"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "other",
+          "label": "晚饭=其他餐"
+        }
+      ]
+    },
+    {
+      "id": "pre_dinner",
+      "label": "晚饭前练",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "breakfast",
+          "label": "早饭"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "other",
+          "label": "午饭=其他餐"
+        },
+        {
+          "slot": "pre_workout",
+          "quota_type": "pre_workout",
+          "label": "练前餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "post_workout",
+          "label": "晚饭=练后餐"
+        }
+      ]
+    },
+    {
+      "id": "post_dinner",
+      "label": "晚饭后练",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "breakfast",
+          "label": "早饭"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "other",
+          "label": "午饭=其他餐"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "pre_workout",
+          "label": "晚饭=练前餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "post_workout",
+          "quota_type": "post_workout",
+          "label": "练后餐"
+        }
+      ]
+    },
+    {
+      "id": "late_night",
+      "label": "夜里练",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "breakfast",
+          "label": "早饭"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "other",
+          "label": "午饭=其他餐"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "other",
+          "label": "晚饭=其他餐"
+        },
+        {
+          "slot": "training",
+          "quota_type": null,
+          "label": "训练"
+        },
+        {
+          "slot": "post_workout",
+          "quota_type": "post_workout",
+          "label": "练后餐（离睡觉太近不建议）"
+        }
+      ]
+    },
+    {
+      "id": "no_strength",
+      "label": "无力训者",
+      "steps": [
+        {
+          "slot": "breakfast",
+          "quota_type": "breakfast",
+          "label": "早饭"
+        },
+        {
+          "slot": "lunch",
+          "quota_type": "lunch",
+          "label": "午饭"
+        },
+        {
+          "slot": "dinner",
+          "quota_type": "dinner",
+          "label": "晚饭"
+        }
+      ]
+    }
+  ],
+  "rest_day_sequence": [
+    {
+      "slot": "breakfast",
+      "quota_type": "breakfast",
+      "label": "早饭"
+    },
+    {
+      "slot": "lunch",
+      "quota_type": "lunch",
+      "label": "午饭"
+    },
+    {
+      "slot": "dinner",
+      "quota_type": "dinner",
+      "label": "晚饭"
+    }
+  ]
+}

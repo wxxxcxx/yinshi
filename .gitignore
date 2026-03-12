@@ -1,0 +1,8 @@
+.codex/
+.DS_Store
+tmp_images/
+web/node_modules/
+web/.next/
+web/.vercel/
+web/out/
+web/*.log
