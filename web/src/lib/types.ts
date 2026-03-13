@@ -55,7 +55,8 @@ export type CalculationConstants = {
       advanced: number;
     }
   >;
-  goal_multipliers: Record<Goal, number>;
+  goal_target_multipliers: Record<Goal, number>;
+  intake_adherence_factor: number;
   fat_quota_grams: Record<
     Goal,
     {

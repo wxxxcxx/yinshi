@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 
@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "饮食计划 · 配额与热量计算",
   description: "基于训练场景与配额表的热量与宏量计算器。",
   applicationName: "饮食计划 PWA",
+};
+
+export const viewport: Viewport = {
   themeColor: "#f6f1e7",
 };
 

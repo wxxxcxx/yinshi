@@ -41,8 +41,15 @@ export function getStrengthCalories(
   return constants.strength_training_calories[sex][level];
 }
 
-export function getGoalMultiplier(constants: CalculationConstants, goal: Goal) {
-  return constants.goal_multipliers[goal];
+export function getGoalTargetMultiplier(
+  constants: CalculationConstants,
+  goal: Goal
+) {
+  return constants.goal_target_multipliers[goal];
+}
+
+export function getIntakeAdherenceFactor(constants: CalculationConstants) {
+  return constants.intake_adherence_factor;
 }
 
 export function getFatQuota(

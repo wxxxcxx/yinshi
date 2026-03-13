@@ -10,7 +10,7 @@ import type {
   MealSequences,
 } from "./types";
 
-const dataRoot = path.resolve(process.cwd(), "..", "data");
+const dataRoot = path.resolve(process.cwd(), "data");
 
 function loadJson<T>(fileName: string): T {
   const fullPath = path.join(dataRoot, fileName);
