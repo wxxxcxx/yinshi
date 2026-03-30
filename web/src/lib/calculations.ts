@@ -107,6 +107,31 @@ export function getCardioPerHour(
   return readValue(clamped);
 }
 
+export function getCardioPerUnit(cardio: CardioTable, itemId: string) {
+  const item = cardio.items.find((entry) => entry.id === itemId);
+  return item?.per_kg ?? null;
+}
+
+export function getCardioDailyCalories(
+  cardio: CardioTable,
+  itemId: string,
+  weightKg: number,
+  quantityPerWeek: number
+) {
+  const perKg = getCardioPerUnit(cardio, itemId);
+  if (
+    perKg == null ||
+    !Number.isFinite(weightKg) ||
+    weightKg <= 0 ||
+    !Number.isFinite(quantityPerWeek) ||
+    quantityPerWeek <= 0
+  ) {
+    return null;
+  }
+
+  return (weightKg * perKg * quantityPerWeek) / 7;
+}
+
 export function findMacroCell(
   table: MacroQuotaTable,
   heightCm: number,

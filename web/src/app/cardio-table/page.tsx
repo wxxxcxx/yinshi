@@ -35,7 +35,7 @@ export default function CardioTablePage() {
                 有氧消耗表
               </h1>
               <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-                按体重档位查看每小时有氧热量消耗。主页面里的“有氧消耗”计算会直接引用这份表，再结合每周时长折算成日均热量。
+                这里保留按体重档位整理后的参考表，方便对照不同项目的大致消耗。主页面里的“有氧消耗”当前按“体重 × 每公斤参考 × 每周数量 ÷ 7”折算日均热量。
               </p>
             </div>
           </div>

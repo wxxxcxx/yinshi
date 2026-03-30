@@ -20,7 +20,8 @@ import {
   calculateBmr,
   findMacroCell,
   formatPercent,
-  getCardioPerHour,
+  getCardioDailyCalories,
+  getCardioPerUnit,
   getFatQuota,
   getGoalTargetMultiplier,
   getIntakeAdherenceFactor,
@@ -89,7 +90,8 @@ const buildCardioLabel = (group: string, label: string | number) => {
 
 type CardioEntry = {
   id: string;
-  hours: string;
+  quantity: string;
+  inputMode: "daily" | "weekly";
 };
 
 type PlannerProps = {
@@ -176,7 +178,7 @@ function ResponsiveSelect({
       </div>
       <div className="hidden md:block">
         <Select value={value} onValueChange={onChange} disabled={disabled}>
-          <SelectTrigger className="input-shell h-11 rounded-md border-0 bg-transparent">
+          <SelectTrigger className="input-shell h-11 rounded-md border-0 bg-transparent data-[size=default]:h-11">
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
@@ -500,23 +502,34 @@ export function CaloriePlanner({ data }: PlannerProps) {
       .map((entry) => {
         const item = data.cardio.items.find((target) => target.id === entry.id);
         if (!item) return null;
-        const weeklyHours = Number(entry.hours);
-        if (!Number.isFinite(weeklyHours) || weeklyHours <= 0) {
+        const rawQuantity = Number(entry.quantity);
+        const quantityPerWeek =
+          entry.inputMode === "daily" ? rawQuantity * 7 : rawQuantity;
+        if (!Number.isFinite(quantityPerWeek) || quantityPerWeek <= 0) {
           return {
             id: item.id,
             label: buildCardioLabel(item.group, item.label),
-            weeklyHours: 0,
-            perHour: null,
+            inputMode: entry.inputMode,
+            rawQuantity: Number.isFinite(rawQuantity) ? rawQuantity : 0,
+            quantityPerWeek: 0,
+            perUnit: item.per_kg,
             dailyCalories: 0,
           };
         }
-        const perHour = getCardioPerHour(data.cardio, item.id, weightKg);
-        const dailyCalories = perHour ? (perHour * weeklyHours) / 7 : null;
+        const perUnit = getCardioPerUnit(data.cardio, item.id);
+        const dailyCalories = getCardioDailyCalories(
+          data.cardio,
+          item.id,
+          weightKg,
+          quantityPerWeek
+        );
         return {
           id: item.id,
           label: buildCardioLabel(item.group, item.label),
-          weeklyHours,
-          perHour,
+          inputMode: entry.inputMode,
+          rawQuantity,
+          quantityPerWeek,
+          perUnit,
           dailyCalories: dailyCalories ?? null,
         };
       })
@@ -631,7 +644,10 @@ export function CaloriePlanner({ data }: PlannerProps) {
   const addCardio = () => {
     const first = data.cardio.items[0];
     if (!first) return;
-    setCardioEntries((prev) => [...prev, { id: first.id, hours: "1" }]);
+    setCardioEntries((prev) => [
+      ...prev,
+      { id: first.id, quantity: "1", inputMode: "weekly" },
+    ]);
   };
 
   const updateCardio = (index: number, patch: Partial<CardioEntry>) => {
@@ -736,18 +752,24 @@ export function CaloriePlanner({ data }: PlannerProps) {
               <div className="mt-6 space-y-4">
                 <div className="rounded-lg border border-white/35 bg-[linear-gradient(180deg,rgba(141,121,170,0.54),rgba(112,95,140,0.4))] p-4 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] backdrop-blur-xl">
                   <div className="text-xs uppercase tracking-[0.22em] text-white/72">
-                    今日执行重点
+                    {trainingLevel === "none" ? "当前执行热量" : "执行热量标准"}
+                  </div>
+                  <div className="mt-2 text-xs uppercase tracking-[0.18em] text-white/66">
+                    {trainingLevel === "none" ? "休息日" : "训练日 / 休息日"}
                   </div>
                   <div className="mt-2 text-3xl font-semibold">
                     {calorieDerived
-                      ? `${roundValue(
-                          calorieDerived.trainingDayEatCalories -
+                      ? trainingLevel === "none"
+                        ? `${roundValue(calorieDerived.restDayEatCalories)} kcal`
+                        : `${roundValue(calorieDerived.trainingDayEatCalories)} / ${roundValue(
                             calorieDerived.restDayEatCalories
-                        )} kcal`
+                          )} kcal`
                       : "—"}
                   </div>
                   <div className="mt-2 text-sm text-white/78">
-                    训练日和休息日采用不同摄入标准，帮助你在保证执行感受的前提下更稳定地推进目标。
+                    {trainingLevel === "none"
+                      ? "当前方案没有力训日，按休息日热量标准执行即可。"
+                      : "训练日和休息日采用不同摄入标准，按当天是否训练选择对应热量执行。"}
                   </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -874,25 +896,31 @@ export function CaloriePlanner({ data }: PlannerProps) {
                   </motion.div>
                 ) : null}
 
-                <div className="glass-subtle rounded-lg p-5">
-                  <div className="mb-4 flex items-center justify-between gap-3">
+                <div className="glass-subtle relative rounded-lg p-5">
+                  <Button
+                    asChild
+                    type="button"
+                    variant="ghost"
+                    className="absolute top-3 right-3 h-8 w-8 rounded-md text-[var(--color-hero-ink)]"
+                  >
+                    <Link
+                      href="/cardio-table"
+                      aria-label="查看有氧消耗表"
+                      title="查看有氧消耗表"
+                    >
+                      <CircleHelp className="h-3.5 w-3.5" />
+                    </Link>
+                  </Button>
+                  <div className="mb-4 flex items-center justify-between gap-3 pr-10">
                     <div>
                       <div className="text-sm font-semibold text-foreground">
                         有氧消耗
                       </div>
-                      <div className="text-sm text-muted-foreground">
-                        可以叠加多个项目，按周小时数折算为日均消耗。
-                      </div>
+                        <div className="text-sm text-muted-foreground">
+                        可以叠加多个项目；每个项目都可选择按日输入或按周输入，系统会自动折算为日均消耗。
+                        </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Link
-                        href="/cardio-table"
-                        aria-label="查看有氧消耗表"
-                        title="查看有氧消耗表"
-                        className="glass-subtle flex h-10 w-10 items-center justify-center rounded-md text-[var(--color-hero-ink)]"
-                      >
-                        <CircleHelp className="h-4 w-4" />
-                      </Link>
+                    <div className="mr-8 flex flex-wrap items-center gap-2 md:mr-0">
                       <Button
                         type="button"
                         onClick={addCardio}
@@ -920,69 +948,129 @@ export function CaloriePlanner({ data }: PlannerProps) {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -16, scale: 0.98 }}
                           transition={{ duration: 0.22 }}
-                          className="glass-subtle grid gap-3 rounded-lg p-4 md:grid-cols-[1.35fr_0.8fr_1fr_auto]"
+                          className="glass-subtle space-y-4 rounded-lg p-4"
                         >
-                          <ResponsiveSelect
-                            value={entry.id}
-                            onChange={(value) => updateCardio(index, { id: value })}
-                            options={cardioOptions}
-                            placeholder="选择有氧"
-                          />
-                          <ResponsiveNumberInput
-                            value={entry.hours}
-                            onChange={(value) =>
-                              updateCardio(index, { hours: value })
-                            }
-                            min={0}
-                            max={20}
-                            step={0.5}
-                          />
+                          <div className="grid items-end gap-3 md:grid-cols-[1fr_auto]">
+                            <div className="min-w-0 flex-1 space-y-2">
+                              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                                有氧项目 #{index + 1}
+                              </div>
+                              <ResponsiveSelect
+                                value={entry.id}
+                                onChange={(value) => updateCardio(index, { id: value })}
+                                options={cardioOptions}
+                                placeholder="选择有氧"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <div className="text-xs uppercase tracking-[0.18em] text-transparent select-none">
+                                删除
+                              </div>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                className="glass-subtle h-11 w-11 shrink-0 rounded-md"
+                                onClick={() => removeCardio(index)}
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="grid items-stretch gap-3 md:grid-cols-2">
+                            <div className="glass-subtle flex h-full flex-col rounded-md px-4 py-3">
+                              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                                录入方式
+                              </div>
+                              <div className="mt-2 flex-1">
+                                <ResponsiveSelect
+                                  value={entry.inputMode}
+                                  onChange={(value) =>
+                                    updateCardio(index, {
+                                      inputMode: value as CardioEntry["inputMode"],
+                                    })
+                                  }
+                                  options={[
+                                    { value: "weekly", label: "按周" },
+                                    { value: "daily", label: "按日" },
+                                  ]}
+                                  placeholder="录入方式"
+                                />
+                              </div>
+                            </div>
+                            <div className="glass-subtle flex h-full flex-col rounded-md px-4 py-3">
+                              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                                数量
+                              </div>
+                              <div className="mt-2 flex-1">
+                                <Input
+                                  className="input-shell h-11 rounded-md border-0 bg-transparent"
+                                  value={entry.quantity}
+                                  onChange={(value) =>
+                                    updateCardio(index, {
+                                      quantity: value.target.value,
+                                    })
+                                  }
+                                  type="number"
+                                  min={0}
+                                  max={20}
+                                  step={0.5}
+                                />
+                              </div>
+                            </div>
+                          </div>
                           <div className="glass-subtle rounded-md px-4 py-3 text-sm leading-6 text-muted-foreground">
                             {(() => {
-                              const hours = Number(entry.hours);
-                              const perHour =
+                              const rawQuantity = Number(entry.quantity);
+                              const quantityPerWeek =
+                                entry.inputMode === "daily"
+                                  ? rawQuantity * 7
+                                  : rawQuantity;
+                              const perUnit =
                                 currentWeightKg == null
                                   ? null
-                                  : getCardioPerHour(
+                                  : getCardioPerUnit(data.cardio, entry.id);
+                              const dailyCalories =
+                                currentWeightKg != null
+                                  ? getCardioDailyCalories(
                                       data.cardio,
                                       entry.id,
-                                      currentWeightKg
-                                    );
-                              const dailyCalories =
-                                perHour != null &&
-                                Number.isFinite(hours) &&
-                                hours > 0
-                                  ? (perHour * hours) / 7
+                                      currentWeightKg,
+                                      quantityPerWeek
+                                    )
                                   : null;
 
                               return (
                                 <>
-                                  <div>
-                                    当前项目有氧消耗：
-                                    <span className="font-semibold text-foreground">
-                                      {" "}
-                                      {formatCalories(
-                                        dailyCalories == null
-                                          ? null
-                                          : roundValue(dailyCalories)
-                                      )}
-                                    </span>
+                                  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                                    日均消耗
+                                  </div>
+                                  <div className="mt-1 text-lg font-semibold text-foreground">
+                                    {formatCalories(
+                                      dailyCalories == null
+                                        ? null
+                                        : roundValue(dailyCalories)
+                                    )}
+                                  </div>
+                                  <div className="mt-2 text-xs leading-5 text-muted-foreground">
+                                    当前按
+                                    {entry.inputMode === "daily"
+                                      ? "日输入"
+                                      : "周输入"}
+                                    ，折算后为{" "}
+                                    {Number.isFinite(quantityPerWeek)
+                                      ? quantityPerWeek
+                                      : 0}{" "}
+                                    单位/周。
                                   </div>
                                   <div className="text-xs leading-5 text-muted-foreground">
-                                    按当前项目和填写时长自动折算为日均消耗。
+                                    {perUnit == null
+                                      ? "按当前项目自动折算为日均消耗。"
+                                      : `按 体重 × ${perUnit}/kg × 周总量 ÷ 7 折算。`}
                                   </div>
                                 </>
                               );
                             })()}
                           </div>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            className="glass-subtle h-11 w-11 rounded-md"
-                            onClick={() => removeCardio(index)}
-                          >
-                            <Minus className="h-4 w-4" />
-                          </Button>
                         </motion.div>
                       ))}
                     </AnimatePresence>
@@ -1097,7 +1185,7 @@ export function CaloriePlanner({ data }: PlannerProps) {
                         ? calorieDerived.cardioDetails
                             .map(
                               (detail) =>
-                                `${detail.label} ${detail.weeklyHours}h/周`
+                                `${detail.label} ${detail.rawQuantity} 单位/${detail.inputMode === "daily" ? "日" : "周"}`
                             )
                             .join(" · ")
                         : "当前未添加有氧项目。"
@@ -1339,7 +1427,9 @@ export function CaloriePlanner({ data }: PlannerProps) {
                           <div className="space-y-1">
                             {calorieDerived.cardioDetails.map((detail) => (
                               <div key={detail.id}>
-                                {detail.label}：{detail.weeklyHours}h/周，日均{" "}
+                                {detail.label}：{detail.rawQuantity} 单位/
+                                {detail.inputMode === "daily" ? "日" : "周"}，
+                                折算 {detail.quantityPerWeek} 单位/周，日均{" "}
                                 {formatCalories(
                                   detail.dailyCalories == null
                                     ? null
